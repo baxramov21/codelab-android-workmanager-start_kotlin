@@ -24,11 +24,14 @@ import com.example.background.databinding.ActivityBlurBinding
 
 class BlurActivity : AppCompatActivity() {
 
-    private val viewModel: BlurViewModel by viewModels {
-        BlurViewModel.BlurViewModelFactory(
-            application
-        )
+    private val viewModelFactory by lazy {
+        BlurViewModelFactory(application)
     }
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[BlurViewModel::class.java]
+    }
+
     private lateinit var binding: ActivityBlurBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
